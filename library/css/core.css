@@ -1,7 +1,7 @@
 /* .
-. GOODLOOK LIBRARY CORE STYLESHEET
+. ENGIPRESS LIBRARY CORE STYLESHEET
 . 
-. Contains global Wordpress classes, ids, etc. that will be used in all Goodlook themes
+. Contains global Wordpress classes, ids, etc. that will be used in all Engipress themes
 . */
 
 
@@ -45,29 +45,243 @@ form input[type=submit] {
 
 form input,
 form select,
-form textarea {
+form textarea,
+form button {
 	font-size: 1em;
 }
 
 form,
 form div,
 form input[type=submit],
-form.eng-form-banner input[type=submit] {
+form.eng-form-banner input[type=submit],
+form button {
 	width: 100%;
 	text-align: center;
 }
 
 form input,
 form select,
-form textarea {
+form textarea,
+form button {
 	border: 2px solid #000;
 	width: calc(100% - 4px);
 }
 
-form input[type=submit] {
+form input[type=submit],
+form button {
 	cursor: pointer;
 	font-weight: bold;
 	letter-spacing: 2px;
+}
+
+
+form.eng-form-width-50p,
+form.eng-form-width-70p {
+	margin: 0 auto;
+}
+
+form.eng-form-width-50p {
+	width: 50%;
+}
+
+form.eng-form-width-70p {
+	width: 70%;
+}
+
+form#searchform input,
+form .sbe-widget-form-field,
+form.eng-form-banner input,
+form.eng-form-banner input[type=submit],
+form.eng-form-banner button,
+form.eng-form-banner textarea,
+form.eng-form-banner button,
+form.eng-form-contact input,
+form.eng-form-contact input[type=submit],
+form.eng-form-contact textarea,
+form.eng-form-contact button,
+form.eng-form-contact button {
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-webkit-appearance: none;
+	padding: 5px 4px;
+	margin-bottom: 5px;
+}
+
+form.eng-form-banner input,
+form.eng-form-banner input[type=submit],
+form.eng-form-banner button,
+form.eng-form-contact input,
+form.eng-form-contact input[type=submit],
+form.eng-form-contact button,
+form.eng-form-contact textarea {
+	border: 0 none;
+}
+
+form.eng-form-banner input[type=text],
+form.eng-form-banner input[type=submit],
+form.eng-form-banner button {
+	width: calc(100% - 10px);
+}
+
+form.eng-form-contact input[type=text],
+form.eng-form-contact textarea {
+	width: calc(100% - 8px);
+}
+
+form.eng-form-banner input[type=submit]:hover,
+form.eng-form-banner button:hover,
+form.eng-form-contact input[type=submit]:hover,
+form.eng-form-contact button:hover {
+	text-decoration: none;
+}
+
+form.eng-form-banner ul li.gfield,
+form.eng-form-contact ul li.gfield,
+form.eng-form-email ul li.gfield,
+form.eng-form-banner ul li.gfield.gform_hidden,
+form.eng-form-content ul li.gfield.gform_hidden,
+form.eng-form-email ul li.gfield.gform_hidden {
+    margin: 0;
+}
+
+form.eng-form-banner .gform_heading,
+form.eng-form-contact .gform_heading/*,
+form.eng-form-email .gform_heading*/ {
+    margin-bottom: 10px;
+}
+
+form.eng-form-banner .gform_footer,
+form.eng-form-contact .gform_footer,
+form.eng-form-email .gform_footer {
+    margin: 0 auto;
+	width: 35%;
+}
+
+form.eng-form-banner .gform_title,
+form.eng-form-contact .gform_title,
+form.eng-form-email .gform_title {
+    font-size: 25px;
+	margin-bottom: 10px;
+}
+
+form.eng-form-banner label,
+form.eng-form-email label {
+	display: none;
+}
+
+form.eng-form-banner .gform_body {
+    margin: 0 auto;
+	width: 80%;
+}
+
+form.eng-form-email {
+	text-align: center;
+	width: 400px;
+	overflow: hidden;
+}
+
+form.eng-form-email .gform_body {
+    float: left;
+    width: 310px;
+}
+
+form.eng-form-email .gform_footer {
+    float: right;
+    width: 90px;
+    clear: none;
+    margin-top: 16px;
+}
+
+form.eng-form-email .gform_body input {
+    width: 94%;
+    border-radius: 5px;
+    padding: 2%;
+    margin-top: 15px;
+}
+
+form.eng-form-content .gfield {
+    margin: 10px 0;
+	clear: both;
+	overflow: hidden;
+}
+
+form.eng-form-content label,
+form.eng-form-content span.name_first,
+form.eng-form-content span.name_last,
+form.eng-form-content .ginput_container_select {
+	text-align: left;
+}
+
+form.eng-form-content label {
+	display: block;
+	font-weight: bold;
+}
+
+form.eng-form-content span.name_first label,
+form.eng-form-content span.name_last label {
+	font-weight: normal;
+}
+
+form.eng-form-content span.name_first,
+form.eng-form-content span.name_last {
+	float: left;
+    width: calc(50% - 2px);
+    display: inline-block;
+}
+
+form.eng-form-content span.name_first:nth-of-type(even),
+form.eng-form-content span.name_last:nth-of-type(even) {
+    float: right;
+}
+
+form.eng-form-content input,
+form.eng-form-content select,
+form.eng-form-content textarea,
+form.eng-form-content button {
+    border: 1px solid #000;
+	padding: 5px 4px;
+}
+
+form.eng-form-content input,
+form.eng-form-content textarea {
+	width: calc(100% - 10px);
+}
+
+form.eng-form-content select {
+	width: 100%;
+}
+
+form.eng-form-content .ginput_container_checkbox {
+	text-align: left;
+}
+
+form.eng-form-content input[type=radio],
+form.eng-form-content input[type=checkbox] {
+	float: left;
+	width: auto;
+	margin: 0 10px;
+}
+
+form.eng-form-content input[type=submit],
+form.eng-form-content button {
+	width: 50%;
+	margin: 0 auto;
+}
+
+.gform_validation_container, 
+.gform_wrapper .gform_validation_container, 
+.gform_wrapper .field_sublabel_hidden_label label,
+.gform_wrapper .hidden_label label,
+body .gform_wrapper .gform_body ul.gform_fields li.gfield.gform_validation_container, 
+body .gform_wrapper li.gform_validation_container, 
+body .gform_wrapper ul.gform_fields li.gfield.gform_validation_container {
+    display: none !important;
+    position: absolute !important;
+    left: -9000px;
+}
+
+.gfield_description {
+	font-size: 11px;
 }
 
 
@@ -156,13 +370,13 @@ form input[type=submit] {
     padding: 1% 0;
 }
 
-.banner-content-left {
-	float: left;
-	text-align: left;
+.banner-content-left,
+.banner-content-right {
+	float: none;
 }
 
-.banner-content-right {
-	float: right;
+.banner-area .heading {
+	text-align: center;
 }
 
 .banner-area video {
@@ -198,13 +412,15 @@ form input[type=submit] {
 }
 
 
-/* Global Engipress CSS Rules */
+/* Global Goodlook CSS Rules */
 .display-mobile,
 .display-tablet-and-mobile,
 .display-desktop-and-mobile,
+.content img,
 .menu-mobile-toggle,
 .logo#logo-menu-mobile,
-.logo#logo-menu-mobile .primarytitle a {
+.logo#logo-menu-mobile .primarytitle a,
+a.subcontainer {
 	display: block;
 }
 
@@ -213,6 +429,10 @@ form input[type=submit] {
 .display-desktop-and-tablet,
 .has-menu-mobile-toggle .menu {
 	display: none;
+}
+
+a.subcontainer {
+	overflow: hidden;
 }
 
 .has-menu-mobile-toggle {
@@ -271,22 +491,6 @@ form input[type=submit] {
 	line-height: 40px;
 }
 
-.banner-content-left,
-.banner-content-right {
-	float: none;
-}
-
-.vertically-centered {
-	position: initial;
-	top: initial;
-	transform: translate(0%, 0%);
-	-webkit-transform: translate(0%, 0%);
-	-ms-transform: translate(0%, 0%);
-	-moz-transform: translate(0%, 0%);
-	-o-transform: translate(0%, 0%);
-	margin: 0 auto;
-}
-
 .left {
 	float: left;
 }
@@ -325,14 +529,14 @@ form input[type=submit] {
 }
 
 .vertically-centered {
-	display: block;
-	position: absolute;
-	top: 50%;
-	transform: translate(0%, -50%);
-	-webkit-transform: translate(0%, -50%);
-	-ms-transform: translate(0%, -50%);
-	-moz-transform: translate(0%, -50%);
-	-o-transform: translate(0%, -50%);
+	position: initial;
+	top: initial;
+	transform: translate(0%, 0%);
+	-webkit-transform: translate(0%, 0%);
+	-ms-transform: translate(0%, 0%);
+	-moz-transform: translate(0%, 0%);
+	-o-transform: translate(0%, 0%);
+	margin: 0 auto;
 }
 
 .positioning-left {
@@ -395,6 +599,11 @@ ul.list-social > li,
 ul.widget-list-cptloop,
 ul.widget-list-cptloop > li {
 	list-style-type: none;
+}
+
+aside.content .widget-list-cptloop .title,
+aside.content .widget-list-cptloop .title a {
+	font-weight: normal;
 }
 
 .content form ul {
@@ -471,7 +680,20 @@ body {
 }
 
 
-/* Responsive CSS - Tablet */
+/* Responsive CSS - Mobile Only */
+@media screen and (max-width: 700px) {
+	.alignleft,
+	.alignright {
+		float: none;
+	}
+	
+	.content img {
+		margin: 0 auto;
+	}
+}
+
+
+/* Responsive CSS - Tablet and Desktop */
 @media screen and (min-width: 700px) {
 	.display-tablet,
 	.display-desktop-and-tablet,
@@ -486,6 +708,10 @@ body {
 	.menu-mobile-toggle,
 	.logo#logo-menu-mobile {
 		display: none;
+	}
+	
+	.content img {
+		display: initial;
 	}
 
 	.content h1 {
@@ -514,24 +740,28 @@ body {
 	.has-menu-mobile-toggle .menu {
 		padding-top: 0px;
 	}
-}
+	
+	.banner-content-left {
+		float: left;
+		text-align: left;
+	}
 
-
-/* Responsive CSS - Desktop */
-@media screen and (min-width: 980px) {
-	.display-desktop,
-	.display-desktop-and-tablet,
-	.display-desktop-and-mobile {
+	.banner-content-right {
+		float: right;
+	}
+	
+	.vertically-centered {
 		display: block;
+		position: absolute;
+		top: 50%;
+		transform: translate(0%, -50%);
+		-webkit-transform: translate(0%, -50%);
+		-ms-transform: translate(0%, -50%);
+		-moz-transform: translate(0%, -50%);
+		-o-transform: translate(0%, -50%);
 	}
-
-	.display-tablet,
-	.display-mobile,
-	.display-tablet-and-mobile {
-		display: none;
-	}
-
-
+	
+	
 	/* Menu / Drop Down */
 	.menu.dropdown .menu-item .sub-menu a {
 		display: block;
@@ -569,6 +799,22 @@ body {
 	.menu.dropdown .sub-menu .menu-item:hover .sub-menu,
 	.menu.dropdown .sub-menu .menu-item .sub-menu .menu-item:hover .sub-menu {
 		display: block;
+	}
+}
+
+
+/* Responsive CSS - Desktop Only */
+@media screen and (min-width: 980px) {
+	.display-desktop,
+	.display-desktop-and-tablet,
+	.display-desktop-and-mobile {
+		display: block;
+	}
+
+	.display-tablet,
+	.display-mobile,
+	.display-tablet-and-mobile {
+		display: none;
 	}
 
 

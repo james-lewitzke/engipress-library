@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: Engipress Library
-Plugin URI: http://engipressmke.com/wp-repo/engipress-library
+Plugin URI: http://engipress.com/wp-repository/engipress-library
 Description: This is the plugin that powers all Engipress Themes.
-Version: 2.0
+Version: 2.2
 Author: James Lewitzke
 Author URI: http://engipress.com/
 */

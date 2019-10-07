@@ -2,9 +2,11 @@
 function eng_standard_custom_image_sizes() {
 	add_image_size('custom-size-150x150', 150, 150, true);
 	add_image_size('custom-size-200x200', 200, 200, true);
+	add_image_size('custom-size-250x175', 250, 175, true);
 	add_image_size('custom-size-250x250', 250, 250, true);
 	add_image_size('custom-size-200x300', 200, 300, true);
 	add_image_size('custom-size-300x200', 300, 200, true);
+	add_image_size('custom-size-420x300', 420, 300, true);
 }
 add_action( 'after_setup_theme', 'eng_standard_custom_image_sizes' );
 

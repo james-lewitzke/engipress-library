@@ -6,7 +6,7 @@ function get_cpts() {
 			is_singular($posttype),
 			is_page_template('template-cpt-' . $posttype . '.php'),
 			is_page_template('template-cpt-' . $posttype . '-archives.php'),
-			is_tax($posttype . '-categories'),
+			is_tax( get_object_taxonomies($posttype) ),
 			is_tax_wildcard( $posttype )
 		)) && (! in_array( $posttype, array(
 			'post',
@@ -24,7 +24,7 @@ function get_cpt_lists() {
 		if ( in_array( $posttype, array(
 			is_page_template('template-cpt-' . $posttype . '.php'),
 			is_page_template('template-cpt-' . $posttype . '-archives.php'),
-			is_tax($posttype . '-categories'),
+			is_tax( get_object_taxonomies($posttype) ),
 			is_tax_wildcard( $posttype )
 		)) ) :
 			return true;
@@ -60,8 +60,7 @@ function is_blog() {
 		is_home() ||
 		is_page_template('template-blog-archives.php') ||
 		is_child_page('biography') ||
-		( is_archive() && ! $cpt ) ||
-		is_posttype('blog')
+		( is_archive() && ! $cpt )
 	;
 }
 
@@ -74,8 +73,7 @@ function is_blog_list() {
 		is_search() || 
 		is_home() ||
 		is_page_template('template-blog-archives.php') ||
-		( is_archive() && ! $cpt ) ||
-		is_posttype('blog')
+		( is_archive() && ! $cpt )
 	;
 }
 
@@ -116,7 +114,7 @@ function is_system_panels() {
 
 function is_default_page() {
     return 
-		( is_page() && (! ( is_front_page() || is_page_template() ) ) )
+		( is_page() && (! ( is_front_page() || is_page_template() || is_child_page('biography') ) ) )
 	;
 }
 
@@ -126,7 +124,7 @@ function is_posttype($posttype) {
 		is_singular($posttype) || 
 		is_page_template('template-cpt-' . $posttype . '.php') || 
 		is_page_template('template-cpt-' . $posttype . '-archives.php') || 
-		is_tax($posttype . '-categories') || 
+		is_tax( get_object_taxonomies($posttype) ) || 
 		is_tax_wildcard( $posttype )
 	;
 }
@@ -141,7 +139,7 @@ function is_tax_wildcard($posttype = null) {
         'public'   => true,
         '_builtin' => false
     );
-    $taxonomies = get_taxonomies( $args);
+    $taxonomies = get_taxonomies($args);
     
     if ( $taxonomies ) :
         foreach ( $taxonomies  as $taxonomy ) :

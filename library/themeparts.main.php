@@ -117,7 +117,7 @@ function eng_classes_body($body_classes) {
 	elseif ( get_post_types() ) :
 		if ( is_page_template() || is_tax() || is_tax_wildcard() ) :
 			foreach ( get_post_types() as $posttype ) :
-				if ( is_page_template('template-cpt-' . $posttype . '.php') || is_page_template('template-cpt-' . $posttype . '-archives.php') || is_tax($posttype . '-categories') || is_tax_wildcard( $posttype ) ) : 
+				if ( is_page_template('template-cpt-' . $posttype . '.php') || is_page_template('template-cpt-' . $posttype . '-archives.php') || is_tax( get_object_taxonomies($posttype) ) || is_tax_wildcard( $posttype ) ) : 
 					$body_classes[] .= $posttype;
 				endif;
 			endforeach;
@@ -341,7 +341,7 @@ function eng_designmain_tags_list($location = null) {
 }
 
 
-function eng_return_title($location) {
+function eng_return_blog_title($location) {
 	$html = '<h2 id="blog-title';
 
 	if ( $location ) : 
@@ -367,12 +367,48 @@ function eng_return_title($location) {
 }
 
 
-function eng_title($location = null) {
-	echo eng_return_title($location);
+function eng_blog_title($location = null) {
+	echo eng_return_blog_title($location);
 }
 
 
-function eng_return_primary_title() {
+function eng_return_heading($text, $tag, $classes) {
+	if ( $tag ) :
+		$heading_tag = $tag;
+		
+	else :
+		$heading_tag = 'h2';
+		
+	endif;
+	
+	
+	$heading_classes = 'heading';
+	
+	if ( $classes ) :
+		$heading_classes .= ' ' . $classes;
+		
+	endif;
+	
+	
+	$html = '<' . $heading_tag . ' class="' . $heading_classes . '">';
+
+	
+	$html .= $text;
+	
+		
+	
+	$html .= '</' . $heading_tag . '>';
+	
+	return $html;
+}
+
+
+function eng_heading($text, $tag = null, $classes = null) {
+	echo eng_return_heading($text, $tag, $classes);
+}
+
+
+function eng_return_primary_title($prefix) {
 	global $post;
 	
 	$html = '
@@ -387,10 +423,10 @@ function eng_return_primary_title() {
 		$html .= '<h2 id="primarytitle-author" class="primarytitle">Posts by ' . get_the_author_meta('display_name') . '</h2>';
 		
 	elseif ( is_category() ) :
-		$html .= '<h2 id="primarytitle-category" class="primarytitle">' . single_cat_title('', false) . '</h2>';
+		$html .= '<h2 id="primarytitle-category" class="primarytitle">' . single_cat_title($prefix, false) . '</h2>';
 
 	elseif ( is_tax() ) :
-		$html .= '<h2 id="primarytitle-taxonomy" class="primarytitle">' . single_cat_title('', false) . '</h2>';
+		$html .= '<h2 id="primarytitle-taxonomy" class="primarytitle">' . single_cat_title($prefix, false) . '</h2>';
 
 	elseif ( is_archive() ) :
 		$html .= '<h2 id="primarytitle-archives" class="primarytitle">Monthly Archives for ' . get_the_date('F, Y') . '</h2>';
@@ -415,8 +451,8 @@ function eng_return_primary_title() {
 }
 
 
-function eng_primary_title() {
-	echo eng_return_primary_title();
+function eng_primary_title($prefix = null) {
+	echo eng_return_primary_title($prefix);
 }
 
 

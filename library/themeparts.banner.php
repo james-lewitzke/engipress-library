@@ -3,6 +3,7 @@ function eng_banner($position_banner_image = null, $classes_banner_items = null,
 	global $post;
 	
 	$cf_banner_bgimage = do_shortcode(get_post_meta($post->ID, 'banner-bgimage', true));
+	$cf_banner_bgimage_child = do_shortcode(get_post_meta($post->post_parent, 'banner-bgimage', true));
 	$cf_banner_bgvideo = do_shortcode(get_post_meta($post->ID, 'banner-bgvideo', true));
 	$cf_banner_bgyoutube = do_shortcode(get_post_meta($post->ID, 'banner-bgyoutube', true));
 	$cf_banner_title = do_shortcode(get_post_meta($post->ID, 'banner-title', true));
@@ -11,6 +12,8 @@ function eng_banner($position_banner_image = null, $classes_banner_items = null,
 	$library_banner_image_url_designmain = eng_library_url() . '/images/banners/designmain.png';
 	$library_banner_image_url_home = eng_library_url() . '/images/banners/home.png';
 	$library_banner_image_url_default = eng_library_url()  . '/images/banners/default.png';
+	$theme_banner_folder_url_cpt = eng_theme_url() . '/images/banners/cpts/';
+	$theme_banner_folder_path_cpt = eng_theme_path() . '/images/banners/cpts/';
 	$theme_banner_image_url_designmain = eng_theme_url() . '/images/banners/designmain.png';
 	$theme_banner_image_path_designmain = eng_theme_path() . '/images/banners/designmain.png';
 	$theme_banner_image_url_home = eng_theme_url() . '/images/banners/home.png';
@@ -37,7 +40,10 @@ function eng_banner($position_banner_image = null, $classes_banner_items = null,
 	endif;
 	
 	
-	if ( file_exists($theme_banner_image_path_default) ) :
+	if ( eng_option('ageneral', 'sitedefaultbannerURL') ) :
+		$banner_image_URL_default = eng_option('ageneral', 'sitedefaultbannerURL');
+	
+	elseif ( file_exists($theme_banner_image_path_default) ) :
 		$banner_image_URL_default = $theme_banner_image_url_default;
 		
 	else :
@@ -49,12 +55,25 @@ function eng_banner($position_banner_image = null, $classes_banner_items = null,
 	if ( $cf_banner_bgimage ) : 
 		$banner_image_URL = $cf_banner_bgimage;	
 	
+	elseif ( $cf_banner_bgimage_child ) :
+		$banner_image_URL = $cf_banner_bgimage_child;
+	
+	elseif ( is_design_main() ) :
+		foreach ( get_post_types() as $posttype ) :
+			if ( is_posttype($posttype) ) :
+				$banner_image_URL = $theme_banner_folder_url_cpt . $posttype . '.png';
+				
+			elseif ( is_blog() ) :
+				$banner_image_URL = $banner_image_URL_designmain;
+				
+			endif;
+
+		endforeach;
+			
+	
 	elseif ( has_post_thumbnail() ) : 
 		$banner_image_URL = get_the_post_thumbnail_url();
-		
-	elseif ( is_design_main() ) :
-		$banner_image_URL = $banner_image_URL_designmain;
-		
+			
 	elseif ( is_front_page() ) :
 		$banner_image_URL = $banner_image_URL_home;
 		
@@ -105,6 +124,10 @@ function eng_banner($position_banner_image = null, $classes_banner_items = null,
 
 	if ( $cf_banner_title ) : 
 		$banner_title = $cf_banner_title;
+		
+	elseif ( is_tax() ) :
+		$term = get_term_by('slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
+		$banner_title = $term->name;
 		
 	elseif ( is_home() ) :
 		$banner_title = 'Blog';
@@ -164,30 +187,30 @@ function eng_banner($position_banner_image = null, $classes_banner_items = null,
 			<div id="banner-items" class="banner-items' . $banner_items_classes . $banner_items_toggled . '">
 		';
 	endif;
-	
-	if ( $toggle_title == 'title-on' ) : 
-		$html .= '
-			<h1 id="banner-title" class="primarytitle">
-				<span id="banner-title-span" class="primarytitle-span">' . $banner_title . '</span>
-			</h1>
-		';
-	endif;
-	
-	if ( $toggle_date == 'date-on' ) : 
-		$html .= '
-			<div id="banner-date" class="metadate">
-				<span id="banner-date-span" class="metadate-span">' . date('F, j Y') . '</span>
-			</div>
-		';
-	endif;
-	
-	if ( $toggle_content == 'content-on' ) : 
-		$html .= '
-			<div id="banner-content" class="content">
-				<div id="banner-content-div" class="content-div floatarea">' . $banner_content . '</div>
-			</div>
-		';
-	endif;
+		
+		if ( $toggle_title == 'title-on' ) : 
+			$html .= '
+				<h1 id="banner-title" class="primarytitle">
+					<span id="banner-title-span" class="primarytitle-span">' . $banner_title . '</span>
+				</h1>
+			';
+		endif;
+		
+		if ( $toggle_date == 'date-on' ) : 
+			$html .= '
+				<div id="banner-date" class="metadate">
+					<span id="banner-date-span" class="metadate-span">' . date('F, j Y') . '</span>
+				</div>
+			';
+		endif;
+		
+		if ( $toggle_content == 'content-on' ) : 
+			$html .= '
+				<div id="banner-content" class="content">
+					<div id="banner-content-div" class="content-div floatarea">' . $banner_content . '</div>
+				</div>
+			';
+		endif;
 	
 	if ( ($toggle_title == 'title-on') || ($toggle_date == 'date-on') || ($toggle_content == 'content-on') ) : 
 		$html .= '

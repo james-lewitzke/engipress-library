@@ -1,6 +1,23 @@
+/* .
+. GOODLOOK LIBRARY MAIN DESIGN STYLESHEET
+. 
+. Contains primary design CSS for the Blog and CPTs that will be used in all Goodlook themes
+. */
 
+/* Main Design General */
+body.design-main .navigation a,
+body.design-main .navigation .current {
+	display: inline-block;
+	border: 1px solid #5e5e5e;
+	border-radius: 5px;
+	padding: 10px;
+	margin-top: 2%;
+}
 
-/* Responsive CSS - Tablet */
+body.design-main .navigation a {
+	text-decoration: none;
+}
+
 
 /* Main Design Menu */
 body.design-main .design-main-nav {
@@ -20,7 +37,7 @@ body.design-main .design-main-nav .menu {
 
 body.design-main .design-main-nav .menu-item,
 body.design-main .design-main-nav .menu-item a {
-	display: inline-block;
+	display: block;
 }
 
 body.design-main .design-main-nav .menu > .menu-item {
@@ -48,7 +65,6 @@ body.design-main .design-main-nav .menu .menu-item .sub-menu .menu-item {
 body.design-main aside .sbe-widget-email-field, 
 body.design-main aside .searchform input[type="text"] {
 	display: block;
-	padding: 0.5%;
 	margin: 0 auto;
 }
 
@@ -188,7 +204,7 @@ body.design-main aside .sbe-widget-form-field-title {
 
 body.design-main aside .sbe-widget-email-field, 
 body.design-main aside .searchform input[type="text"] {
-	width: 14%;
+	width: 90%;
 }
 
 body.design-main aside .widgettitle {
@@ -196,6 +212,7 @@ body.design-main aside .widgettitle {
 }
 
 body.design-main-list aside .design-main-comments p,
+body.design-main-list aside .widget .cat-item,
 body.design-main-list aside .widget-list-cptloop .title,
 body.design-main-list aside .widget-list-cptloop .content,
 body.design-main-list aside .widget-list-cptloop .excerpt {
@@ -218,11 +235,15 @@ body.blog .design-main-nav {
 }
 
 body.blog .design-main-nav .menu > .menu-item > a {
-	padding: 1% 3%;
+	padding: 10px 30px;
 }
 
 body.blog .design-main-nav .menu > .menu-item > .sub-menu {
-	padding: 0 3%;
+	padding: 0px 30px;
+}
+
+body.blog .design-main-nav .menu > .menu-item > .sub-menu > .menu-item {
+    line-height: 30px;
 }
 
 body.blog .container {
@@ -244,31 +265,28 @@ body.blog .container .thumb img {
 	display: block;
 }
 
-body.blog .navigation a,
-body.blog .navigation .current {
-	display: inline-block;
-	border: 1px solid #5e5e5e;
-	border-radius: 0.5%;
-	padding: 1%;
-}
-
-body.blog .navigation a {
-	text-decoration: none;
-}
-
 
 /* Responsive CSS - Tablet and Desktop */
 @media screen and (min-width: 700px) {
+	body.design-main .design-main-nav .menu-item,
+	body.design-main .design-main-nav .menu-item a {
+		display: inline-block;
+	}
+
 	/* Main Design Thumbnails */
 	body.design-main-list .container.hasthumb .thumb-custom-size-150x150 {
 		min-height: 150px;
+	}
+	
+	body.design-main-list .container.hasthumb .thumb-custom-size-250x175 {
+		min-height: 175px;
 	}
 
 	body.design-main-list .container.hasthumb .thumb-custom-size-200x200,
 	body.design-main-list .container.hasthumb .thumb-custom-size-300x200 {
 		min-height: 200px;
 	}
-
+	
 	body.design-main-list .container.hasthumb .thumb-custom-size-250x250 {
 		min-height: 250px;
 	}
@@ -336,12 +354,16 @@ body.blog .navigation a {
 	}
 	
 	body.design-main-list .container.hasthumb-tablet-left.hasthumb-custom-size-250x250 .data,
-	body.design-main-list .container.hasthumb-tablet-alternating.hasthumb-custom-size-250x250:nth-of-type(odd) .data {
+	body.design-main-list .container.hasthumb-tablet-alternating.hasthumb-custom-size-250x250:nth-of-type(odd) .data,
+	body.design-main-list .container.hasthumb-tablet-left.hasthumb-custom-size-250x175 .data,
+	body.design-main-list .container.hasthumb-tablet-alternating.hasthumb-custom-size-250x175:nth-of-type(odd) .data {
 		margin-left: 260px;
 	}
 	
 	body.design-main-list .container.hasthumb-tablet-right.hasthumb-custom-size-250x250 .data,
-	body.design-main-list .container.hasthumb-tablet-alternating.hasthumb-custom-size-250x250:nth-of-type(even) .data {
+	body.design-main-list .container.hasthumb-tablet-alternating.hasthumb-custom-size-250x250:nth-of-type(even) .data,
+	body.design-main-list .container.hasthumb-tablet-right.hasthumb-custom-size-250x175 .data,
+	body.design-main-list .container.hasthumb-tablet-alternating.hasthumb-custom-size-250x175:nth-of-type(even) .data {
 		margin-right: 260px;
 	}
 	
@@ -407,12 +429,16 @@ body.blog .navigation a {
 	}
 	
 	body.design-main-list .container.hasthumb-desktop-left.hasthumb-custom-size-250x250 .data,
-	body.design-main-list .container.hasthumb-desktop-alternating.hasthumb-custom-size-250x250:nth-of-type(odd) .data {
+	body.design-main-list .container.hasthumb-desktop-alternating.hasthumb-custom-size-250x250:nth-of-type(odd) .data,
+	body.design-main-list .container.hasthumb-desktop-left.hasthumb-custom-size-250x175 .data,
+	body.design-main-list .container.hasthumb-desktop-alternating.hasthumb-custom-size-250x175:nth-of-type(odd) .data {
 		margin-left: 260px;
 	}
 	
 	body.design-main-list .container.hasthumb-desktop-right.hasthumb-custom-size-250x250 .data,
-	body.design-main-list .container.hasthumb-desktop-alternating.hasthumb-custom-size-250x250:nth-of-type(even) .data {
+	body.design-main-list .container.hasthumb-desktop-alternating.hasthumb-custom-size-250x250:nth-of-type(even) .data,
+	body.design-main-list .container.hasthumb-desktop-right.hasthumb-custom-size-250x175 .data,
+	body.design-main-list .container.hasthumb-desktop-alternating.hasthumb-custom-size-250x175:nth-of-type(even) .data {
 		margin-right: 260px;
 	}
 	

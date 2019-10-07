@@ -22,11 +22,16 @@ endif;
 
 if ( $this->args == 'searchresults' ) : 
 	global $query_string;
+	
 	$query_args = explode("&", $query_string);
 	$queryargs = array(
-		'meta_key' => 'eng_search_exclude', 
-		'meta_compare' => '!=', 
-		'meta_value' => 'on'
+		'meta_query'=> array(
+			array(
+				'key'     => 'eng_mb_search_exclude',
+				'value'   => 'on',
+				'compare' => 'NOT LIKE',
+			),
+		),
 	);
 
 	foreach($query_args as $key => $string) :
@@ -183,6 +188,7 @@ echo '<' . $wraptag . ' class="container ' . $this->posttypesingle . '-container
 	endif;
 echo '>';
 
+
 if ( isset ($this->elements['subwrap']['tag']) ) :
 	$subwraptag = $this->elements['subwrap']['tag'];
 elseif ( is_system_panels() ) :
@@ -192,22 +198,36 @@ elseif ( is_system_panels() ) :
 	endif;
 endif;
 
-if ( isset ($this->elements['subwrap']['class']) ) :
-	$subwrapclass = $this->elements['subwrap']['class'];
-elseif ( is_system_panels() ) :
-	if ( isset ($this->elements['panels-off'] )) :
-	else :
-		$subwrapclass = 'panel-inner wrap floatarea';
-	endif;
-endif;
-
 
 if ( isset ($subwraptag) ) :
-	echo '<' . $subwraptag;
-		if ($subwrapclass) : echo ' class="' . $subwrapclass . '"'; endif;
+	echo '<' . $subwraptag . ' class="subcontainer ' . $this->posttypesingle . '-subcontainer';
+	
+		if ( isset($this->elements['subwrap']['class']) ) : 
+			echo ' ' . $this->elements['subwrap']['class']; 
+			
+		elseif ( isset($this->elements['subwrap']['href']) ) : 
+			echo ' link ' . $this->posttypesingle . '-link'; 
+			
+		elseif ( is_system_panels() ) :
+			if ( isset ($this->elements['panels-off'] )) :
+			else :
+				echo ' panel-inner wrap floatarea';
+			endif;
+		endif;
+		
+		echo '"';
+		
+	
+		if ( isset($this->elements['subwrap']['href']) ) : 
+			echo ' href="' . do_shortcode(get_post_meta($post->ID, $this->elements['subwrap']['href'], true)) . '"'; 
+		endif;
+		
+		if ( isset($this->elements['subwrap']['target']) ) : 
+			echo ' target="' . $this->elements['subwrap']['target'] . '"'; 
+		endif;
+	
 	echo '>';
 endif;
-
 
 
 	if ( isset ($this->elements) ) :
@@ -223,6 +243,7 @@ endif;
 			
 		endforeach;
 	endif;
+	
 
 if ( isset ($subwraptag) ) :
 	echo '</' . $subwraptag . '>';
@@ -287,6 +308,8 @@ public function datetime() {
 
 
 public function thumbnail() {
+	global $post;
+	
 	if ( has_post_thumbnail() ) :
 		if ( $this->elements['thumbnail']['type'] == 'custom' ) :
 			$thumb_class = $this->elements['thumbnail']['name'] . ' ';
@@ -299,8 +322,27 @@ public function thumbnail() {
 	
 		echo '<div class="thumb thumb-' . $thumb_class . $this->posttypesingle . '-thumb">';
 		
-		if ( $this->elements['thumbnail']['link'] == true ) :
-			echo '<a href="' . get_permalink() . '">';
+		if ( $this->elements['thumbnail']['link'] ) :
+			echo '<a href="';
+		
+				if ( $this->elements['thumbnail']['link']['type'] == 'post' ) :
+					echo get_permalink();
+					
+				elseif ( $this->elements['thumbnail']['link']['type'] == 'customfield' ) :
+					echo get_post_meta($post->ID, $this->elements['thumbnail']['link']['url'], true);
+					
+				elseif ( $this->elements['thumbnail']['link']['type'] == 'custom' ) :
+					echo $this->elements['thumbnail']['link']['url'];
+					
+				endif;
+			
+			echo '"';
+				if ( $this->elements['thumbnail']['link']['target'] == '_blank' ) :
+					echo ' target="_blank"';
+				
+				endif;
+			
+			echo '>';
 		endif;
 		
 		if ( ( $this->elements['thumbnail']['type'] == 'thumbnail' ) || ( $this->elements['thumbnail']['type'] == 'medium' ) | ( $this->elements['thumbnail']['type'] == 'large' ) ||( $this->elements['thumbnail']['type'] == 'full' ) ) :
@@ -314,7 +356,7 @@ public function thumbnail() {
 			
 		endif;
 		
-		if ( $this->elements['thumbnail']['link'] == true ) :
+		if ( $this->elements['thumbnail']['link'] ) :
 			echo '</a>';
 		endif;
 		
@@ -339,7 +381,7 @@ public function content() {
 
 
 public function biography() {
-	echo '<div class="biography ' . $this->posttypesingle . '-biography">';
+	echo '<div class="biography ' . $this->posttypesingle . '-biography floatarea">';
 	
 	$image = get_avatar( get_the_author_meta( 'ID' ) );
 	
@@ -428,10 +470,57 @@ public function comments() {
 }
 
 
-public function customfield() {
+public function customfields() {
 	global $post;
 	
-	echo '<div class="customfield customfield-' . $this->customfield . ' data ' . $this->posttypesingle . '-data">' . $this->elements['customfield']['prefix'] . do_shortcode(get_post_meta($post->ID, $this->elements['customfield']['name'], true)) .'</div>';
+	$customfields_list = $this->elements['customfields']['list'];
+	
+	echo '<div class="customfields floatarea">';
+	
+	foreach ( $customfields_list as $customfield_item_key => $customfield_item_value ) :	
+		echo '<div class="customfield customfield-' . $customfield_item_value['type'] . ' ' . $this->posttypesingle . '-customfield data ' . $this->posttypesingle . '-data">';
+		
+		
+		if ( $customfield_item_value['type'] == 'link' ) :	
+			echo '<a';
+			
+			if ( $customfield_item_value['parts']['href'] ) : 
+				echo ' href="' . do_shortcode(get_post_meta($post->ID, $customfield_item_value['parts']['href'], true)) . '"'; 
+			endif;
+			
+			if ( $customfield_item_value['parts']['target'] ) : 
+				echo ' target="' . $customfield_item_value['parts']['target'] . '"'; 
+			endif;
+
+			echo '>';
+			
+		endif;
+		
+		if ( $customfield_item_value['prefix'] ) :
+			echo $customfield_item_value['prefix'];
+			
+		endif;
+		
+		
+		if ( get_post_meta($post->ID, $customfield_item_value['parts']['text'], true) ) :
+			 echo  do_shortcode(get_post_meta($post->ID, $customfield_item_value['parts']['text'], true));
+			 
+		elseif ( $customfield_item_value['parts']['text'] ) :
+			echo $customfield_item_value['parts']['text'];
+			
+		endif;
+		
+		
+		if ( $customfield_item_value['type'] == 'link' ) :	
+			echo '</a>';
+
+		endif;
+		
+		echo '</div>';
+
+	endforeach;
+	
+	echo '</div>';
 }
 
 

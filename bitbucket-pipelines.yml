@@ -1,0 +1,6 @@
+pipelines:
+  default:
+    - step:
+        script:
+          - git archive --format zip --prefix ${BITBUCKET_REPO_SLUG}/ --output ${BITBUCKET_REPO_SLUG}.zip master
+          - curl -f -X POST "http://goodlookmke.com/wp-repo/deploy.php" -F submit=1 -F source_host=bitbucket -F source_user=${BITBUCKET_REPO_OWNER} -F source_pass=${GLMKE_SECRET} -F package=@${BITBUCKET_REPO_SLUG}.zip
